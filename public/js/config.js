@@ -1,4 +1,4 @@
-const WS_URL = "wss://localhost:3000";
+const WS_URL = "ws://localhost:3000";
 
 const STATUS = {
     WIN: "youwin",

@@ -55,7 +55,7 @@ function handleIncomingMessage(ws, msg) {
 }
 
 function handleDraw(confirmationCode) {
-  let participants = Array.from(wss.client).filter((client) => !client.isAdmin);
+  let participants = Array.from(wss.clients).filter((client) => !client.isAdmin);
 
   const winner = participants[Math.floor(Math.random() * participants.length)]
 
@@ -64,7 +64,9 @@ function handleDraw(confirmationCode) {
     if (client === winner) {
       result = JSON.stringify({status: "youwin", code: confirmationCode})
     }
-    client.send(result);
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(result);
+    }
   })
 }
 
